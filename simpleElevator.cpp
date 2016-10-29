@@ -10,8 +10,7 @@
 #include "Elevator.h"
 #include "Lobby.h"
 
-const int MAX_PPL = 7;
-const int MAX_FLOOR = 10, MIN_FLOOR = 1, MAX_WEIGHT = 7;
+const int MAX_FLOOR = 10, MIN_FLOOR = 1, MAX_WEIGHT = 7, MAX_PPL = 10;
 
 int main()
 {
@@ -27,10 +26,15 @@ int main()
         elevator[i]->people().push_back(*person[i]);
         std::cout << *(elevator[i]);
     }
+    
     Lobby* lobby[MAX_FLOOR];
-    for(int i = 0; i < MAX_FLOOR; ++i)
-        lobby[i] = new Lobby(MAX_PPL);
-
+    for(int i = 0; i < MAX_FLOOR; ++i){
+        //std::cout << "Making lobby index: " << i << std::endl;
+        lobby[i] = new Lobby(MAX_PPL, i);
+        lobby[i]->people().push_back(*person[i]);
+        std::cout << *(lobby[i]);
+    }
+    
 
     return 0;
 }

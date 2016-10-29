@@ -13,7 +13,7 @@ Elevator::~Elevator() {
 
 std::ostream & operator<<(std::ostream & cout,
                           const Elevator& e) {
-    cout << "\n[\nAt: " << e.at()
+    cout << "\n[------ELEVATOR------\nAt: " << e.at()
          << "\nDestination: " << e.destination()
          << "\nID: " << e.id()
          << "\nMax PPL: " << e.MAX_PPL()
@@ -25,7 +25,7 @@ std::ostream & operator<<(std::ostream & cout,
     {
         cout << e.people().at(i) << "\n";
     }
-    cout << "]\n";
+    cout << "------END ELEVATOR------]\n";
     
     return cout;
 
