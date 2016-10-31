@@ -7,29 +7,29 @@
 
 class Elevator {
 public:
-    Elevator(const int, const int, int);
+    Elevator(int const, int const, int);
     ~Elevator();
-    int at() const {return at_;}
+    int const at() const { return at_; }
     int & at() {return at_;}
-    int destination() const {return destination_;}
-    int & destination() {return destination_;}
-    int id() const{return id_;}
+    int const destination() const { return destination_; }
+    int & destination() { return destination_; }
+    int const id() const{ return id_; }
     int & id(){return id_;}
-    int MAX_PPL() const{return MAX_PPL_;}
-    int MAX_WEIGHT() const{return MAX_WEIGHT_;}
-    std::vector<Person> people() const{return person_;}
-    std::vector<Person> & people(){return person_;}
+    int const MAX_PPL() const{ return MAX_PPL_; }
+    int const MAX_WEIGHT() const{ return MAX_WEIGHT_; }
+    std::vector<Person> const people() const{ return person_; }
+    std::vector<Person> & people(){ return person_; }
 
 private:
     int at_, destination_, id_;
-    const int MAX_WEIGHT_;
-    const int MAX_PPL_;
-    std::vector<Person> person_;
+    int const MAX_WEIGHT_;
+    int const MAX_PPL_;
+    std::vector<Person *> person_;
 		
 protected:
 };
 
 std::ostream & operator<<(std::ostream & cout,
-                          const Elevator& e);
+                          Elevator const & e);
 
 #endif

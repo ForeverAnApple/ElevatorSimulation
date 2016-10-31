@@ -1,6 +1,6 @@
 #include "Lobby.h"
 
-Lobby::Lobby(const int MAX_WEIGHT, const int FLOOR)
+Lobby::Lobby(int const MAX_WEIGHT, int const FLOOR)
     : MAX_WEIGHT_(MAX_WEIGHT), FLOOR_(FLOOR) {
 
 }
@@ -10,7 +10,7 @@ Lobby::~Lobby() {
 }
 
 std::ostream & operator<<(std::ostream & cout,
-                          const Lobby& l) {
+                          Lobby const & l) {
     cout << "\n{-----Lobby-------}"
          << "\nFloor: " << l.FLOOR()
          << "\nMax weight: " << l.MAX_WEIGHT() << std::endl;

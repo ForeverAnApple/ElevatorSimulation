@@ -10,10 +10,12 @@
 #include "Elevator.h"
 #include "Lobby.h"
 
-const int MAX_FLOOR = 10, MIN_FLOOR = 1, MAX_WEIGHT = 7, MAX_PPL = 10;
+int const MAX_FLOOR = 10, MIN_FLOOR = 1,
+    MAX_WEIGHT = 7, MAX_PPL = 10;
 
 int main()
 {
+    
     Person* person[MAX_PPL];
     for(int i = 0; i < MAX_PPL; ++i){
         person[i] = new Person(0, 1, i, 1);
@@ -36,5 +38,14 @@ int main()
     }
     
 
+    /*Person test1(0, 0, 1, 1);
+    std::cout << test1 << std::endl;
+
+    Person test2(0, 0, 2, 1);
+    std::cout << test2 << std::endl;
+
+    test2 = test1;
+    std::cout << test2 << std::endl;*/
+    
     return 0;
 }
