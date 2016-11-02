@@ -7,7 +7,8 @@
 class Person
 {
 public:
-    Person(int, int, int, int const);
+    Person(int source = 0, int destination = 0,
+           int id = 0, int const WEIGHT = 1);
     ~Person();
     int const source() const { return source_; }
     int & source() {return source_;}

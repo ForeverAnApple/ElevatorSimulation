@@ -11,30 +11,31 @@
 #include "Lobby.h"
 
 int const MAX_FLOOR = 10, MIN_FLOOR = 1,
-    MAX_WEIGHT = 7, MAX_PPL = 10;
+    MAX_WEIGHT = 7, MAX_PPL = 100;
+
+void ticker();
 
 int main()
 {
     
-    Person* person[MAX_PPL];
+    std::vector< Person *> people;
     for(int i = 0; i < MAX_PPL; ++i){
-        person[i] = new Person(0, 1, i, 1);
-        std::cout << *(person[i]);
+        people.push_back(new Person(0, 1, i, 1));
+        std::cout << *(people.at(i));
     }
 	
-    Elevator* elevator[2];
+    std::vector< Elevator *> elevators;
     for(int i = 0; i < 2; ++i){
-        elevator[i] = new Elevator(MAX_PPL, MAX_WEIGHT, i);
-        elevator[i]->people().push_back(*person[i]);
-        std::cout << *(elevator[i]);
+        elevators.push_back(new Elevator( MAX_WEIGHT, i));
+        elevators.at(i)->people().push_back(people.at(i));
+        std::cout << *(elevators.at(i));
     }
-    
-    Lobby* lobby[MAX_FLOOR];
+  
+    std::vector< Lobby *> lobbies;
     for(int i = 0; i < MAX_FLOOR; ++i){
-        //std::cout << "Making lobby index: " << i << std::endl;
-        lobby[i] = new Lobby(MAX_PPL, i);
-        lobby[i]->people().push_back(*person[i]);
-        std::cout << *(lobby[i]);
+        lobbies.push_back(new Lobby(MAX_PPL, i));
+        lobbies.at(i)->people().push_back(people.at(i));
+        std::cout << *(lobbies.at(i));
     }
     
 
@@ -48,4 +49,9 @@ int main()
     std::cout << test2 << std::endl;*/
     
     return 0;
+}
+
+void ticker()
+{
+    
 }
