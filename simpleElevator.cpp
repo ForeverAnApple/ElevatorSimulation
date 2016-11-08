@@ -5,6 +5,7 @@
  */
 
 #include <iostream>
+#include <string>
 #include <sstream>
 #include "Person.h"
 #include "Elevator.h"
@@ -19,25 +20,74 @@ int main()
 {
     
     std::vector< Person *> people;
-    for(int i = 0; i < MAX_PPL; ++i){
+    /*for(int i = 0; i < MAX_PPL; ++i){
         people.push_back(new Person(0, 1, i, 1));
         std::cout << *(people.at(i));
-    }
+    }*/
 	
     std::vector< Elevator *> elevators;
-    for(int i = 0; i < 2; ++i){
+    /*for(int i = 0; i < 2; ++i){
         elevators.push_back(new Elevator( MAX_WEIGHT, i));
-        elevators.at(i)->people().push_back(people.at(i));
+        //elevators.at(i)->people().push_back(people.at(i));
         std::cout << *(elevators.at(i));
-    }
+    }*/
   
     std::vector< Lobby *> lobbies;
-    for(int i = 0; i < MAX_FLOOR; ++i){
+    /*for(int i = 0; i < MAX_FLOOR; ++i){
         lobbies.push_back(new Lobby(MAX_PPL, i));
-        lobbies.at(i)->people().push_back(people.at(i));
+        //lobbies.at(i)->people().push_back(people.at(i));
         std::cout << *(lobbies.at(i));
+    }*/
+
+    people.push_back(new Person(0, 1, 0, 1));
+    elevators.push_back(new Elevator( MAX_WEIGHT, 0));
+    lobbies.push_back(new Lobby(MAX_PPL, 0));
+    lobbies.push_back(new Lobby(MAX_PPL, 1));
+    lobbies.at(0)->people().push_back(people.at(0));
+    std::string command;
+    while(command != "terminate")
+    {
+        for(int i = 0; i < lobbies.size(); ++i)
+            std::cout << *(lobbies.at(i)) << std::endl;
+        for(int i = 0; i < elevators.size(); ++i)
+            std::cout << *(elevators.at(i)) << std::endl;
+  
+        std::cout << "In the while loop\n";
+        for(int i = 0; i < lobbies.size(); ++i){
+            for(int n = 0; n < lobbies.at(i)->people().size(); ++n)
+            {
+                if(lobbies.at(i)->people().at(n)->source() !=
+                   lobbies.at(i)->people().at(n)->destination()) {
+                    elevators.at(0)->destination() =
+                        lobbies.at(i)->people().at(n)->source();
+                }
+                
+                if(elevators.at(i)->at() ==
+                   lobbies.at(i)->people().at(n)->source()) {
+                    elevators.at(0)->people().push_back(lobbies.at(i)->people().at(n));
+                    elevators.at(0)->destination() =
+                        lobbies.at(i)->people().at(n)->destination();
+                    lobbies.at(i)->people().erase(lobbies.at(i)->people().begin() + n); 
+                }   
+            }
+        }
+
+        for(int i = 0; i < elevators.size(); ++i)
+        {
+            if(elevators.at(i)->at() != elevators.at(i)->destination())
+            {
+                elevators.at(i)->at() += (elevators.at(i)->at() < elevators.at(i)->destination())
+                    ? 1 : -1;
+            }
+            for(int n = 0; n < elevators.at(i)->people().size(); ++n)
+            {
+                elevators.at(i)->people().at(n)->source() = elevators.at(i)->at();
+            }
+
+        }
+        std::cin >> command;
+        //for(int i = 0; i < elevators.size(); ++i)
     }
-    
 
     /*Person test1(0, 0, 1, 1);
     std::cout << test1 << std::endl;
