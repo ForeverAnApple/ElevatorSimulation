@@ -29,3 +29,25 @@ std::ostream & operator<<(std::ostream & cout,
     return cout;
 
 }
+
+void Elevator::removePerson(int index)
+{
+    person_.erase(person_.begin() + index);
+}
+
+void Elevator::removePerson(Person * person)
+{
+    for(int i = 0; i < person_.size(); ++i)
+    {
+        if(person_.at(i)->id() == person->id())
+        {
+            person_.erase(person_.begin() + i);
+            break;
+        }
+    }
+}
+
+void Elevator::addPerson(Person * person)
+{
+    person_.push_back(person);
+}

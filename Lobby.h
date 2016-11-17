@@ -12,6 +12,9 @@ public:
     std::vector<Person *> & people(){ return person_; }
     int const MAX_PPL() const{ return MAX_PPL_; }
     int const FLOOR() const{ return FLOOR_; }
+    void removePerson(int);
+    void removePerson(Person *);
+    void addPerson(Person *);
 private:
     int const MAX_PPL_, FLOOR_;
     std::vector<Person *> person_;

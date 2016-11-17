@@ -19,6 +19,9 @@ public:
     int const MAX_WEIGHT() const{ return MAX_WEIGHT_; }
     std::vector<Person *> const & people() const{ return person_; }
     std::vector<Person *> & people(){ return person_; }
+    void removePerson(int);
+    void removePerson(Person *);
+    void addPerson(Person *);
 
 private:
     int at_, destination_, id_;

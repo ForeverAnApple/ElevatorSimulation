@@ -26,3 +26,25 @@ std::ostream & operator<<(std::ostream & cout,
     return cout;
 
 }
+
+void Lobby::removePerson(int index)
+{
+    person_.erase(person_.begin() + index);
+}
+
+void Lobby::removePerson(Person * person)
+{
+    for(int i = 0; i < person_.size(); ++i)
+    {
+        if(person_.at(i)->id() == person->id())
+        {
+            person_.erase(person_.begin() + i);
+            break;
+        }
+    }
+}
+
+void Lobby::addPerson(Person * person)
+{
+    person_.push_back(person);
+}

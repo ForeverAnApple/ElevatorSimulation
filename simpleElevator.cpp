@@ -64,16 +64,18 @@ int main()
                 
                 if(elevators.at(i)->at() ==
                    lobbies.at(i)->people().at(n)->source()) {
-                    elevators.at(0)->people().push_back(lobbies.at(i)->people().at(n));
+                    elevators.at(0)->addPerson(lobbies.at(i)->people().at(n));
                     elevators.at(0)->destination() =
                         lobbies.at(i)->people().at(n)->destination();
-                    lobbies.at(i)->people().erase(lobbies.at(i)->people().begin() + n); 
+                    lobbies.at(i)->removePerson(n); 
                 }   
             }
         }
 
         for(int i = 0; i < elevators.size(); ++i)
         {
+            // TODO: Get people off the elevators
+            //if(elevators.at(i)->people()
             if(elevators.at(i)->at() != elevators.at(i)->destination())
             {
                 elevators.at(i)->at() += (elevators.at(i)->at() < elevators.at(i)->destination())
