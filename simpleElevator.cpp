@@ -67,7 +67,7 @@ int main()
                     elevators.at(0)->addPerson(lobbies.at(i)->people().at(n));
                     elevators.at(0)->destination() =
                         lobbies.at(i)->people().at(n)->destination();
-                    lobbies.at(i)->removePerson(n); 
+                    lobbies.at(i)->remove(n); 
                 }   
             }
         }

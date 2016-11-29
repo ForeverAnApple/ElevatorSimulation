@@ -27,24 +27,45 @@ std::ostream & operator<<(std::ostream & cout,
 
 }
 
-void Lobby::removePerson(int index)
+Person * const Lobby::remove(int index)
 {
+    Person *temp = person_.at(index);
     person_.erase(person_.begin() + index);
+    return temp;
 }
 
-void Lobby::removePerson(Person * person)
+Person * const Lobby::remove(Person * person)
 {
     for(int i = 0; i < person_.size(); ++i)
     {
         if(person_.at(i)->id() == person->id())
         {
+            Person *temp = person_.at(i);
             person_.erase(person_.begin() + i);
-            break;
+            return temp;
         }
     }
 }
 
-void Lobby::addPerson(Person * person)
+int const Lobby::add(Person * person)
 {
     person_.push_back(person);
+    return person_.size() - 1;
+}
+
+//returns the indexes of all people on the floor that want
+//to get on the given elevator and can get on the elevator
+int const Lobby::find(int weightLeft, int eDestination)
+{
+    for(int i = 0; i < person_.size(); ++i )
+    {
+        if(person_.at(i)->WEIGHT() < weightLeft
+           && (person_.at(i)->destination() > FLOOR_ &&
+               eDestination > FLOOR_) ||
+           (person_.at(i)->destination() < FLOOR_ &&
+               eDestination < FLOOR_ ))
+            return i;
+    }
+    return -1;
+
 }
