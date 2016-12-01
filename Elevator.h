@@ -1,3 +1,14 @@
+/*
+ * Authors: Daiwei Chen
+ *          Adam Sawyer
+ *
+ * TODO:
+ *   1.) Queue of the destinations.
+ *   2.) A find function to see who wants to get off on the floor.
+ *   3.) 
+ */
+
+
 #ifndef ELEVATOR_H
 #define ELEVATOR_H
 
@@ -19,9 +30,9 @@ public:
     int const MAX_WEIGHT() const{ return MAX_WEIGHT_; }
     std::vector<Person *> const & people() const{ return person_; }
     std::vector<Person *> & people(){ return person_; }
-    void removePerson(int);
-    void removePerson(Person *);
-    void addPerson(Person *);
+    void remove(int);
+    void remove(Person *);
+    void add(Person *);
 
 private:
     int at_, destination_, id_;

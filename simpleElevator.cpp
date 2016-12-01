@@ -2,6 +2,13 @@
  * Authors: 
  * 	 Adam Sawyer
  * 	 Dave Chen
+ *
+ * @TODO:
+ *   1.) Add a queue to the elevator.
+ *   2.) Simple graphics.
+ *   3.) A function that kicks all the people off the elevator if they need to get off.
+ *   4.) A function that adds people onto the elevator on that floor.
+ *   5.) Function decomp EVERYTHING.
  */
 
 #include <iostream>
@@ -85,7 +92,6 @@ int main()
             {
                 elevators.at(i)->people().at(n)->source() = elevators.at(i)->at();
             }
-
         }
         std::cin >> command;
         //for(int i = 0; i < elevators.size(); ++i)
