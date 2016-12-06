@@ -2,8 +2,8 @@
 
 Elevator::Elevator(int const MAX_WEIGHT, int id)
     : at_(0), MAX_WEIGHT_(MAX_WEIGHT),
-      destination_(0), id_(id) {
-    
+      destination_(0), id_(id), dir_(0)
+{
     
 }
 
@@ -30,12 +30,12 @@ std::ostream & operator<<(std::ostream & cout,
 
 }
 
-void Elevator::removePerson(int index)
+void Elevator::remove(int index)
 {
     person_.erase(person_.begin() + index);
 }
 
-void Elevator::removePerson(Person * person)
+void Elevator::remove(Person * person)
 {
     for(int i = 0; i < person_.size(); ++i)
     {
@@ -47,7 +47,13 @@ void Elevator::removePerson(Person * person)
     }
 }
 
-void Elevator::addPerson(Person * person)
+void Elevator::add(Person * person)
 {
     person_.push_back(person);
+}
+
+int Elevator::find()
+{
+    
+    return -1;
 }

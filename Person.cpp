@@ -2,9 +2,9 @@
 
 
 Person::Person(int source, int destination,
-               int id, int const WEIGHT) 
+               int id, int const WEIGHT, int dir) 
     : source_(source), destination_(destination), id_(id),
-      WEIGHT_(WEIGHT)
+      WEIGHT_(WEIGHT), dir_(dir)
 {
     
 }
@@ -20,10 +20,9 @@ Person & Person::operator=(Person const & p)
     id() = p.id();
 }
 
-
-
 std::ostream & operator<<(std::ostream & cout,
-                          Person const & p) {
+                          Person const & p)
+{
     cout << "\t<Person Source: " << p.source()
          << "\n\tDestination: " << p.destination()
          << "\n\tID: " << p.id()

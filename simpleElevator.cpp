@@ -21,25 +21,29 @@
 int const MAX_FLOOR = 10, MIN_FLOOR = 1,
     MAX_WEIGHT = 7, MAX_PPL = 100;
 
+
+std::vector< Lobby *> lobbies;
+std::vector< Elevator *> elevators;
+std::vector< Person *> people;
+
 void ticker();
+void lobby_tick();
+void elevator_tick();
 
 int main()
 {
     
-    std::vector< Person *> people;
     /*for(int i = 0; i < MAX_PPL; ++i){
         people.push_back(new Person(0, 1, i, 1));
         std::cout << *(people.at(i));
     }*/
 	
-    std::vector< Elevator *> elevators;
     /*for(int i = 0; i < 2; ++i){
         elevators.push_back(new Elevator( MAX_WEIGHT, i));
         //elevators.at(i)->people().push_back(people.at(i));
         std::cout << *(elevators.at(i));
     }*/
   
-    std::vector< Lobby *> lobbies;
     /*for(int i = 0; i < MAX_FLOOR; ++i){
         lobbies.push_back(new Lobby(MAX_PPL, i));
         //lobbies.at(i)->people().push_back(people.at(i));
@@ -60,39 +64,9 @@ int main()
             std::cout << *(elevators.at(i)) << std::endl;
   
         std::cout << "In the while loop\n";
-        for(int i = 0; i < lobbies.size(); ++i){
-            for(int n = 0; n < lobbies.at(i)->people().size(); ++n)
-            {
-                if(lobbies.at(i)->people().at(n)->source() !=
-                   lobbies.at(i)->people().at(n)->destination()) {
-                    elevators.at(0)->destination() =
-                        lobbies.at(i)->people().at(n)->source();
-                }
-                
-                if(elevators.at(i)->at() ==
-                   lobbies.at(i)->people().at(n)->source()) {
-                    elevators.at(0)->addPerson(lobbies.at(i)->people().at(n));
-                    elevators.at(0)->destination() =
-                        lobbies.at(i)->people().at(n)->destination();
-                    lobbies.at(i)->remove(n); 
-                }   
-            }
-        }
-
-        for(int i = 0; i < elevators.size(); ++i)
-        {
-            // TODO: Get people off the elevators
-            //if(elevators.at(i)->people()
-            if(elevators.at(i)->at() != elevators.at(i)->destination())
-            {
-                elevators.at(i)->at() += (elevators.at(i)->at() < elevators.at(i)->destination())
-                    ? 1 : -1;
-            }
-            for(int n = 0; n < elevators.at(i)->people().size(); ++n)
-            {
-                elevators.at(i)->people().at(n)->source() = elevators.at(i)->at();
-            }
-        }
+        lobby_tick();
+        elevator_tick();
+        
         std::cin >> command;
         //for(int i = 0; i < elevators.size(); ++i)
     }
@@ -112,4 +86,46 @@ int main()
 void ticker()
 {
     
+}
+
+void lobby_tick()
+{
+    for(int i = 0; i < lobbies.size(); ++i){
+        for(int n = 0; n < lobbies.at(i)->people().size(); ++n)
+        {
+            if(lobbies.at(i)->people().at(n)->source() !=
+               lobbies.at(i)->people().at(n)->destination()) {
+                elevators.at(0)->destination() =
+                    lobbies.at(i)->people().at(n)->source();
+            }
+                
+            if(elevators.at(i)->at() ==
+               lobbies.at(i)->people().at(n)->source()) {
+                elevators.at(0)->add(lobbies.at(i)->people().at(n));
+                elevators.at(0)->destination() =
+                    lobbies.at(i)->people().at(n)->destination();
+                lobbies.at(i)->remove(n); 
+            }   
+        }
+    }
+}
+
+void elevator_tick()
+{
+    for(int i = 0; i < elevators.size(); ++i)
+    {
+        // TODO: Get people off the elevators
+        // if(elevators.at(i)->people()
+        if(elevators.at(i)->at() != elevators.at(i)->destination())
+        {
+            elevators.at(i)->dir() = (elevators.at(i)->at() < elevators.at(i)->destination())
+                ? 1 : -1;
+            elevators.at(i)->at() += elevators.at(i)->dir();
+        }
+        
+        for(int n = 0; n < elevators.at(i)->people().size(); ++n)
+        {
+            elevators.at(i)->people().at(n)->source() = elevators.at(i)->at();
+        }
+    }
 }
