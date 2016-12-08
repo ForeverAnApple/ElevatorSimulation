@@ -51,11 +51,11 @@ void Elevator::add(Person * person)
     person_.push_back(person);
 }
 
-void move(int x)
+void Elevator::move(int x)
 {
-    at() += x;
-    for(int i = 0; i < people().size(); ++i)
-        people().at(i)->source() += x;
+    at_ += x;
+    for(int i = 0; i < person_.size(); ++i)
+        person_.at(i)->source() += x;
 }
 
 int Elevator::find()
