@@ -21,6 +21,8 @@ public:
     Elevator(int const MAX_WEIGHT = 15,
              int id = 1);
     ~Elevator();
+
+    // Getters and Setters
     int const at() const { return at_; }
     int & at() { return at_; }
     int const destination() const { return destination_; }
@@ -32,6 +34,9 @@ public:
     int const MAX_WEIGHT() const{ return MAX_WEIGHT_; }
     std::vector<Person *> const & people() const{ return person_; }
     std::vector<Person *> & people(){ return person_; }
+
+    // Utility
+    void move(int);
     void remove(int);
     void remove(Person *);
     int find();

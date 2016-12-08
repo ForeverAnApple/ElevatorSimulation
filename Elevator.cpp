@@ -27,7 +27,6 @@ std::ostream & operator<<(std::ostream & cout,
     cout << "------END ELEVATOR------]\n";
     
     return cout;
-
 }
 
 void Elevator::remove(int index)
@@ -50,6 +49,13 @@ void Elevator::remove(Person * person)
 void Elevator::add(Person * person)
 {
     person_.push_back(person);
+}
+
+void move(int x)
+{
+    at() += x;
+    for(int i = 0; i < people().size(); ++i)
+        people().at(i)->source() += x;
 }
 
 int Elevator::find()
