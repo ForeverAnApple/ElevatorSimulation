@@ -15,7 +15,7 @@ std::ostream & operator<<(std::ostream & cout,
          << "\nFloor: " << l.FLOOR()
          << "\nMax people: " << l.MAX_PPL() << std::endl;
 
-    cout << "\n\nPeople In Elevator:\n";
+    cout << "\n\nPeople In Lobby:\n";
 
     for(int i = 0; i < l.people().size(); ++i)
     {

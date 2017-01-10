@@ -4,11 +4,13 @@
  * 	 Dave Chen
  *
  * @TODO:
- *   1.) Add a queue to the elevator.
- *   2.) Simple graphics.
+ *   1.) Add a queue to the controller.
+ *   2.) Simple graphics. *AFTER CORE FUNCTION*
  *   3.) A function that kicks all the people off the elevator if they need to get off.
  *   4.) A function that adds people onto the elevator on that floor.
  *   5.) Function decomp EVERYTHING.
+ *   6.) Elevator Controller.
+ *   7.) Elevator states.
  */
 
 #include <iostream>
@@ -63,10 +65,10 @@ int main()
         for(int i = 0; i < elevators.size(); ++i)
             std::cout << *(elevators.at(i)) << std::endl;
   
-        std::cout << "In the while loop\n";
+        //std::cout << "In the while loop\n";
         lobby_tick();
         elevator_tick();
-        
+        std::cout << "---------------------------End of one tick--------------------------\n";
         std::cin >> command;
         //for(int i = 0; i < elevators.size(); ++i)
     }
