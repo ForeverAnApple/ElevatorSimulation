@@ -8,7 +8,7 @@ class Person
 {
 public:
     Person(int source = 0, int destination = 0,
-           int id = 0, int const WEIGHT = 1, int dir = 0);
+           int id = 0, int const WEIGHT = 1);
     ~Person();
     int const source() const { return source_; }
     int & source() { return source_; }
@@ -16,8 +16,7 @@ public:
     int & destination() { return destination_; }
     int const id() const{ return id_; }
     int & id() { return id_; }
-    int const dir() const{ return dir_; }
-    int & dir() { return dir_; }
+    int const dir() const;
     int const WEIGHT() const{ return WEIGHT_; }
 
     Person & operator=(Person const &);

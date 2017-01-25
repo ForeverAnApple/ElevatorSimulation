@@ -56,7 +56,7 @@ int main()
     elevators.push_back(new Elevator( MAX_WEIGHT, 0));
     lobbies.push_back(new Lobby(MAX_PPL, 0));
     lobbies.push_back(new Lobby(MAX_PPL, 1));
-    lobbies.at(0)->people().push_back(people.at(0));
+    lobbies[0]->add(people[0]);
     std::string command;
     while(command != "terminate")
     {
@@ -100,7 +100,7 @@ void lobby_tick()
                 elevators.at(0)->destination() =
                     lobbies.at(i)->people().at(n)->source();
             }
-                
+
             if(elevators.at(i)->at() ==
                lobbies.at(i)->people().at(n)->source()) {
                 elevators.at(0)->add(lobbies.at(i)->people().at(n));
@@ -117,6 +117,7 @@ void elevator_tick()
     for(int i = 0; i < elevators.size(); ++i)
     {
         // TODO: Get people off the elevators
+        // TODO: Use elevator utility for elevator logic
         // if(elevators.at(i)->people()
         if(elevators.at(i)->at() != elevators.at(i)->destination())
         {
@@ -130,4 +131,7 @@ void elevator_tick()
             elevators.at(i)->people().at(n)->source() = elevators.at(i)->at();
         }
     }
+
+    // Loop using elevator utility
+    
 }

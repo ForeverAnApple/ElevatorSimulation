@@ -60,6 +60,10 @@ void Elevator::move(int x)
 
 int Elevator::find()
 {
-    
+    for(int i = 0; i < person_.size(); ++i) {
+        if(at_ == person_.at(i)->destination()) {
+            return i;
+        }
+    }
     return -1;
 }
