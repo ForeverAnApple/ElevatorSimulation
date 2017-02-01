@@ -28,9 +28,18 @@ std::vector< Lobby *> lobbies;
 std::vector< Elevator *> elevators;
 std::vector< Person *> people;
 
+/*
+ *This vector contains pointers to people who need
+ *to go to a different floor in the order that they
+ *call for an elevator.
+ */ 
+std::vector< Person *> queue; 
+
 void ticker();
 void lobby_tick();
 void elevator_tick();
+
+
 
 int main()
 {
@@ -126,6 +135,15 @@ void elevator_tick()
             elevators.at(i)->at() += elevators.at(i)->dir();
         }
         
+        for(int n = 0; n < elevators.at(i)->people().size(); ++n)
+        {
+            if( elevators.at(i)->people().at(n)->destination() ==
+                elevators.at(i)->at() )
+            {
+                lobbies.at(elevators.at(i)->at())->add(elevators.at(i)->people().at(n));
+                elevators.at(i)->remove(n);
+            }
+        }
         for(int n = 0; n < elevators.at(i)->people().size(); ++n)
         {
             elevators.at(i)->people().at(n)->source() = elevators.at(i)->at();
