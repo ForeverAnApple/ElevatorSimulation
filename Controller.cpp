@@ -1,10 +1,12 @@
 #include "Controller.h"
 
-Controller::Controller()
+Controller()
 {
+    printThingy("Hello World!");
+    printThingy("Hello World!");
 }
 
-Controller::~Controller()
+~Controller()
 {
 }
 
@@ -27,6 +29,11 @@ void Controller::elevatorTick()
         //If the elevator is above its destination move down
         else if(elevators->at(i)->destination() > elevators->at(i)->at())
             elevators->at(i)->move(-1);
+        else if(elevators->at(i)-> destination() ==  elevators->at(i)->at())
+        {
+            elevators->at(i)->destination() = tasks.at(0);
+            tasks.remove(tasks.begin());
+        }
 
 
         //Find people who are at their target destination and
@@ -42,8 +49,6 @@ void Controller::elevatorTick()
     }
 }
     
-
-
 void Controller::lobbyTick()
 {
     
@@ -58,5 +63,3 @@ void addLobby(std::vector<Lobby *> * l)
 {
     lobbies = l;
 }
-
-
