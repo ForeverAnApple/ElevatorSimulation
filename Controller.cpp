@@ -1,12 +1,10 @@
 #include "Controller.h"
 
-Controller()
+Controller::Controller()
 {
-    printThingy("Hello World!");
-    printThingy("Hello World!");
 }
 
-~Controller()
+Controller::~Controller()
 {
 }
 
@@ -32,7 +30,7 @@ void Controller::elevatorTick()
         else if(elevators->at(i)-> destination() ==  elevators->at(i)->at())
         {
             elevators->at(i)->destination() = tasks.at(0);
-            tasks.remove(tasks.begin());
+            tasks.erase(tasks.begin());
         }
 
 
@@ -40,9 +38,9 @@ void Controller::elevatorTick()
         //put them in their according lobby
         while(elevators->at(i)->find() != -1)
         {
-            //Put the current peson inside of the lobby
+            //Put the current person inside of the lobby
             lobbies->at(elevators->at(i)->at())->add(elevators->
-                                                     at(i)->people()->at(elevators->at(i)->find()));
+                                                     at(i)->people().at(elevators->at(i)->find()));
             //Remove the current person from the elevator
             elevators->at(i)->remove(elevators->at(i)->find());
         }                                                                                                                                                              
@@ -51,7 +49,26 @@ void Controller::elevatorTick()
     
 void Controller::lobbyTick()
 {
-    
+    for(int i = 0; i < lobbies->size(); i++)
+    {
+        for(int n = 0; n < elevators->size(); n++)
+        {
+            while(lobbies->at(i)->find(elevators->at(n)->Weight_left(),
+                                       elevators->at(n)->destination() ) != -1)
+            {
+                if(elevators->at(n)->at() == lobbies->at(i)->FLOOR())
+                {
+                    //Put the current person inside of the elevator
+                    elevators->at(n)->add(lobbies->at(i)->people().
+                                          at(lobbies->at(i)->find(elevators->at(n)->Weight_left()
+                                                                  , elevators->at(n)->destination())));
+                    //Remove the current person from the lobby
+                    lobbies->at(i)->remove(lobbies->at(i)->find(elevators->at(n)->Weight_left(),
+                                                                elevators->at(n)->destination()));
+                }    
+            }
+        }    
+    }
 }
 
 void Controller::addElevator(std::vector<Elevator *> * e)
@@ -59,7 +76,7 @@ void Controller::addElevator(std::vector<Elevator *> * e)
     elevators = e;
 }
 
-void addLobby(std::vector<Lobby *> * l)
+void Controller::addLobby(std::vector<Lobby *> * l)
 {
     lobbies = l;
 }

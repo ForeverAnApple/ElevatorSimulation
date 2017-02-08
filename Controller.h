@@ -4,25 +4,25 @@
 
 #include "Elevator.h"
 #include "Lobby.h"
-
+#include <iostream>
 
 class Controller
 {
     
-Public:
+public:
     Controller();
     ~Controller();
     void tick();
-Private:
+private:
     void elevatorTick();
     void lobbyTick();
 
     //Add Stuff
-    void addElevator(Elevator *);
-    void addLobby(Lobby *);
+    void addElevator(std::vector<Elevator *> * e);
+    void addLobby(std::vector<Lobby *> * l);
     //Hold Stuff
     std::vector<Elevator *> *  elevators;
-    std::vector<int *> tasks;
+    std::vector<int> tasks;
     std::vector<Lobby *> * lobbies;
     
 

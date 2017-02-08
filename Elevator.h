@@ -32,6 +32,7 @@ public:
     int const dir() const { return dir_; }
     int & dir(){ return dir_; }
     int const MAX_WEIGHT() const{ return MAX_WEIGHT_; }
+    int const Weight_left() { return MAX_WEIGHT_ - person_.size(); }
     std::vector<Person *> const & people() const{ return person_; }
     std::vector<Person *> & people(){ return person_; }
 
