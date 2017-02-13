@@ -22,28 +22,29 @@ void Controller::elevatorTick()
     {
         //Setup so that if it is at its destination it will not move
         //If the elevator is below its destination move up
-        if(elevators->at(i)->destination() < elevators->at(i)->at())
-            elevators->at(i)->move(1);
+        if(elevators[i]->destination() < elevators[i]->at())
+            elevators[i]->move(1);
         //If the elevator is above its destination move down
-        else if(elevators->at(i)->destination() > elevators->at(i)->at())
-            elevators->at(i)->move(-1);
-        else if(elevators->at(i)-> destination() ==  elevators->at(i)->at())
+        else if(elevators[i]->destination() > elevators[i]->at())
+            elevators[i]->move(-1);
+        else if(elevators[i]-> destination() ==  elevators[i]->at())
         {
-            elevators->at(i)->destination() = tasks.at(0);
+            elevators[i]->destination() = tasks.at(0);
             tasks.erase(tasks.begin());
         }
 
 
         //Find people who are at their target destination and
         //put them in their according lobby
-        while(elevators->at(i)->find() != -1)
+        while(elevators[i]->find() != -1)
         {
             //Put the current person inside of the lobby
-            lobbies->at(elevators->at(i)->at())->add(elevators->
-                                                     at(i)->people().at(elevators->at(i)->find()));
-            //Remove the current person from the elevator
-            elevators->at(i)->remove(elevators->at(i)->find());
-        }                                                                                                                                                              
+          lobbies->at(elevators[i]->at())->add(elevators[i]->
+                                                   people().at(elevators[i]->find()));
+          
+          //Remove the current person from the elevator
+          elevators[i]->remove(elevators[i]->find());
+        }
     }
 }
     
@@ -53,17 +54,17 @@ void Controller::lobbyTick()
     {
         for(int n = 0; n < elevators->size(); n++)
         {
-            while(lobbies->at(i)->find(elevators->at(n)->Weight_left(),
+            while(lobbies[i]->find(elevators->at(n)->Weight_left(),
                                        elevators->at(n)->destination() ) != -1)
             {
-                if(elevators->at(n)->at() == lobbies->at(i)->FLOOR())
+                if(elevators->at(n)->at() == lobbies[i]->FLOOR())
                 {
                     //Put the current person inside of the elevator
-                    elevators->at(n)->add(lobbies->at(i)->people().
-                                          at(lobbies->at(i)->find(elevators->at(n)->Weight_left()
+                    elevators->at(n)->add(lobbies[i]->people().
+                                          at(lobbies[i]->find(elevators->at(n)->Weight_left()
                                                                   , elevators->at(n)->destination())));
                     //Remove the current person from the lobby
-                    lobbies->at(i)->remove(lobbies->at(i)->find(elevators->at(n)->Weight_left(),
+                    lobbies[i]->remove(lobbies[i]->find(elevators->at(n)->Weight_left(),
                                                                 elevators->at(n)->destination()));
                 }    
             }
