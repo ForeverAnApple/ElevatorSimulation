@@ -23,10 +23,10 @@ void Controller::elevatorTick()
         //Setup so that if it is at its destination it will not move
         //If the elevator is below its destination move up
         if(elevators->at(i)->destination() < elevators->at(i)->at())
-            elevators->at(i)->move(1);
+          elevators->at(i)->move(1);
         //If the elevator is above its destination move down
         else if(elevators->at(i)->destination() > elevators->at(i)->at())
-            elevators->at(i)->move(-1);
+          elevators->at(i)->move(-1);
         else if(elevators->at(i)-> destination() ==  elevators->at(i)->at())
         {
             elevators->at(i)->destination() = tasks.at(0);
@@ -39,6 +39,7 @@ void Controller::elevatorTick()
         while(elevators->at(i)->find() != -1)
         {
             //Put the current person inside of the lobby
+
             lobbies->at(elevators->at(i)->at())->add(elevators->at(i)->
                                                      people().at(elevators->at(i)->find()));
             //Remove the current person from the elevator
@@ -59,9 +60,9 @@ void Controller::lobbyTick()
                 if(elevators->at(n)->at() == lobbies->at(i)->FLOOR())
                 {
                     //Put the current person inside of the elevator
-                    elevators->at(n)->add(lobbies->at(i)->people().
-                                          at(lobbies->at(i)->find(elevators->at(n)->Weight_left()
-                                                                  , elevators->at(n)->destination())));
+                  elevators->at(n)->add(lobbies->at(i)->people().
+                                        at(lobbies->at(i)->find(elevators->at(n)->Weight_left(),
+                                                                elevators->at(n)->destination())));
                     //Remove the current person from the lobby
                     lobbies->at(i)->remove(lobbies->at(i)->find(elevators->at(n)->Weight_left(),
                                                                 elevators->at(n)->destination()));

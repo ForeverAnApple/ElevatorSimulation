@@ -7,9 +7,9 @@
  *   1.) Add a queue to the controller.
  *   2.) Simple graphics. *AFTER CORE FUNCTION*
  *   3.) A function that kicks all the people off the elevator if they need to get off.
- *   4.) A function that adds people onto the elevator on that floor.
- *   5.) Function decomp EVERYTHING.
- *   6.) Elevator Controller.
+ *   4.) A function that adds people onto the elevator on that floor. *DONE*
+ *   5.) Function decomp EVERYTHING. *DONE*
+ *   6.) Elevator Controller. *SEMI-DONE*
  *   7.) Elevator states.
  */
 
@@ -19,6 +19,7 @@
 #include "Person.h"
 #include "Elevator.h"
 #include "Lobby.h"
+#include "Controller.h"
 
 int const MAX_FLOOR = 10, MIN_FLOOR = 1,
     MAX_WEIGHT = 7, MAX_PPL = 100;
@@ -28,6 +29,9 @@ std::vector< Lobby *> lobbies;
 std::vector< Elevator *> elevators;
 std::vector< Person *> people;
 
+// The main elevator and lobby controller
+Controller controller;
+
 /*
  *This vector contains pointers to people who need
  *to go to a different floor in the order that they
@@ -35,37 +39,16 @@ std::vector< Person *> people;
  */ 
 std::vector< Person *> queue; 
 
-void ticker();
-void lobby_tick();
-void elevator_tick();
-
-
-
 int main()
 {
-    
-    /*for(int i = 0; i < MAX_PPL; ++i){
-        people.push_back(new Person(0, 1, i, 1));
-        std::cout << *(people.at(i));
-    }*/
-	
-    /*for(int i = 0; i < 2; ++i){
-        elevators.push_back(new Elevator( MAX_WEIGHT, i));
-        //elevators.at(i)->people().push_back(people.at(i));
-        std::cout << *(elevators.at(i));
-    }*/
-  
-    /*for(int i = 0; i < MAX_FLOOR; ++i){
-        lobbies.push_back(new Lobby(MAX_PPL, i));
-        //lobbies.at(i)->people().push_back(people.at(i));
-        std::cout << *(lobbies.at(i));
-    }*/
-
     people.push_back(new Person(0, 1, 0, 1));
     elevators.push_back(new Elevator( MAX_WEIGHT, 0));
     lobbies.push_back(new Lobby(MAX_PPL, 0));
     lobbies.push_back(new Lobby(MAX_PPL, 1));
     lobbies[0]->add(people[0]);
+
+    controller.addElevator(&elevators);
+    controller.addLobby(&lobbies);
     std::string command;
     while(command != "terminate")
     {
@@ -75,8 +58,7 @@ int main()
             std::cout << *(elevators.at(i)) << std::endl;
   
         //std::cout << "In the while loop\n";
-        lobby_tick();
-        elevator_tick();
+        controller.tick();
         std::cout << "---------------------------End of one tick--------------------------\n";
         std::cin >> command;
         //for(int i = 0; i < elevators.size(); ++i)
@@ -92,64 +74,4 @@ int main()
     std::cout << test2 << std::endl;*/
     
     return 0;
-}
-
-void ticker()
-{
-    
-}
-
-void lobby_tick()
-{
-    for(int i = 0; i < lobbies.size(); ++i){
-        for(int n = 0; n < lobbies.at(i)->people().size(); ++n)
-        {
-            if(lobbies.at(i)->people().at(n)->source() !=
-               lobbies.at(i)->people().at(n)->destination()) {
-                elevators.at(0)->destination() =
-                    lobbies.at(i)->people().at(n)->source();
-            }
-
-            if(elevators.at(i)->at() ==
-               lobbies.at(i)->people().at(n)->source()) {
-                elevators.at(0)->add(lobbies.at(i)->people().at(n));
-                elevators.at(0)->destination() =
-                    lobbies.at(i)->people().at(n)->destination();
-                lobbies.at(i)->remove(n); 
-            }   
-        }
-    }
-}
-
-void elevator_tick()
-{
-    for(int i = 0; i < elevators.size(); ++i)
-    {
-        // TODO: Get people off the elevators
-        // TODO: Use elevator utility for elevator logic
-        // if(elevators.at(i)->people()
-        if(elevators.at(i)->at() != elevators.at(i)->destination())
-        {
-            elevators.at(i)->dir() = (elevators.at(i)->at() < elevators.at(i)->destination())
-                ? 1 : -1;
-            elevators.at(i)->at() += elevators.at(i)->dir();
-        }
-        
-        for(int n = 0; n < elevators.at(i)->people().size(); ++n)
-        {
-            if( elevators.at(i)->people().at(n)->destination() ==
-                elevators.at(i)->at() )
-            {
-                lobbies.at(elevators.at(i)->at())->add(elevators.at(i)->people().at(n));
-                elevators.at(i)->remove(n);
-            }
-        }
-        for(int n = 0; n < elevators.at(i)->people().size(); ++n)
-        {
-            elevators.at(i)->people().at(n)->source() = elevators.at(i)->at();
-        }
-    }
-
-    // Loop using elevator utility
-    
 }

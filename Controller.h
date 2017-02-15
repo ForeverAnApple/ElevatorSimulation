@@ -1,4 +1,3 @@
-
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
@@ -13,13 +12,14 @@ public:
     Controller();
     ~Controller();
     void tick();
-private:
-    void elevatorTick();
-    void lobbyTick();
 
     //Add Stuff
     void addElevator(std::vector<Elevator *> * e);
     void addLobby(std::vector<Lobby *> * l);
+private:
+    void elevatorTick();
+    void lobbyTick();
+
     //Hold Stuff
     std::vector<Elevator *> *  elevators;
     std::vector<int> tasks;
