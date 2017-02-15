@@ -39,8 +39,8 @@ void Controller::elevatorTick()
         while(elevators->at(i)->find() != -1)
         {
             //Put the current person inside of the lobby
-            lobbies->at(elevators->at(i)->at())->add(elevators->
-                                                     at(i)->people().at(elevators->at(i)->find()));
+            lobbies->at(elevators->at(i)->at())->add(elevators->at(i)->
+                                                     people().at(elevators->at(i)->find()));
             //Remove the current person from the elevator
             elevators->at(i)->remove(elevators->at(i)->find());
         }                                                                                                                                                              
