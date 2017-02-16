@@ -1,8 +1,8 @@
 #include "Elevator.h"
 
 Elevator::Elevator(int const MAX_WEIGHT, int id)
-    : at_(0), MAX_WEIGHT_(MAX_WEIGHT),
-      destination_(0), id_(id), dir_(0)
+  : at_(0), MAX_WEIGHT_(MAX_WEIGHT),
+    destination_(0), id_(id), dir_(0)
 {
     
 }
@@ -13,57 +13,57 @@ Elevator::~Elevator() {
 
 std::ostream & operator<<(std::ostream & cout,
                           Elevator const & e) {
-    cout << "\n[------ELEVATOR------\nAt: " << e.at()
-         << "\nDestination: " << e.destination()
-         << "\nID: " << e.id()
-         << "\nMAX WEIGHT: " << e.MAX_WEIGHT();
+  cout << "\n[------ELEVATOR------\nAt: " << e.at()
+       << "\nDestination: " << e.destination()
+       << "\nID: " << e.id()
+       << "\nMAX WEIGHT: " << e.MAX_WEIGHT();
 
-    cout << "\n\nPeople In Elevator:\n";
+  cout << "\n\nPeople In Elevator:\n";
 
-    for(int i = 0; i < e.people().size(); ++i)
+  for(int i = 0; i < e.people().size(); ++i)
     {
-        cout << *(e.people().at(i)) << "\n";
+      cout << *(e.people().at(i)) << "\n";
     }
-    cout << "------END ELEVATOR------]\n";
+  cout << "------END ELEVATOR------]\n";
     
-    return cout;
+  return cout;
 }
 
 void Elevator::remove(int index)
 {
-    person_.erase(person_.begin() + index);
+  person_.erase(person_.begin() + index);
 }
 
 void Elevator::remove(Person * person)
 {
-    for(int i = 0; i < person_.size(); ++i)
+  for(int i = 0; i < person_.size(); ++i)
     {
-        if(person_.at(i)->id() == person->id())
+      if(person_.at(i)->id() == person->id())
         {
-            person_.erase(person_.begin() + i);
-            break;
+          person_.erase(person_.begin() + i);
+          break;
         }
     }
 }
 
 void Elevator::add(Person * person)
 {
-    person_.push_back(person);
+  person_.push_back(person);
 }
 
 void Elevator::move(int x)
 {
-    at_ += x;
-    for(int i = 0; i < person_.size(); ++i)
-        person_.at(i)->source() += x;
+  at_ += x;
+  for(int i = 0; i < person_.size(); ++i)
+    person_.at(i)->source() += x;
 }
 
 int Elevator::find()
 {
-    for(int i = 0; i < person_.size(); ++i) {
-        if(at_ == person_.at(i)->destination()) {
-            return i;
-        }
+  for(int i = 0; i < person_.size(); ++i) {
+    if(at_ == person_.at(i)->destination()) {
+      return i;
     }
-    return -1;
+  }
+  return -1;
 }
