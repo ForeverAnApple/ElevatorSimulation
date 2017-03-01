@@ -60,11 +60,14 @@ int const Lobby::find(int weightLeft, int eDestination)
     for(int i = 0; i < person_.size(); ++i )
     {
         if(person_.at(i)->WEIGHT() < weightLeft
-           && (person_.at(i)->destination() > FLOOR_ &&
+           && (person_.at(i)->destination() > FLOOR_))
+          {
+            /*&&
                eDestination > FLOOR_) ||
            (person_.at(i)->destination() < FLOOR_ &&
-               eDestination < FLOOR_ ))
+           eDestination < FLOOR_ ) */
             return i;
+          }
     }
     return -1;
 

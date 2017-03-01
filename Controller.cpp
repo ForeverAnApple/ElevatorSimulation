@@ -23,21 +23,26 @@ void Controller::elevatorTick()
   //Cycle through all of the elevators
   for(int i = 0; i < elevators->size(); i++)
     {
-      //Setup so that if it is at its destination it will not move
-      //If the elevator is below its destination move up
-      if(elevators->at(i)->destination() < elevators->at(i)->at())
-        elevators->at(i)->move(1);
-      //If the elevator is above its destination move down
-      else if(elevators->at(i)->destination() > elevators->at(i)->at())
-        elevators->at(i)->move(-1);
-      else if(elevators->at(i)-> destination() ==  elevators->at(i)->at())
-        {
-          elevators->at(i)->destination() = tasks.at(0);
-          tasks.erase(tasks.begin());
-        }
+      //When the elevator is empty, the elevator sets it direction towards the first thing
+      //on the task list. However, when the elevator has people inside, the elevator's
+      //direction is set to the first person's destination
+      if(elevators->at(i)->people().size() == 0 && tasks.size() != 0) {
+        elevators->at(i)->dir() =
+          tasks.at(0) < elevators->at(i)->at() ? -1 :
+               tasks.at(0) > elevators->at(i)->at() ? 1 : 0;
+        tasks.erase(tasks.begin());
+      }
+      else if(elevators->at(i)->people().size() != 0) {
+        elevators->at(i)->dir() = elevators->at(i)->people().at(0)->dir();
+      }
+      else if(elevators->at(i)->people().size() == 0 && tasks.size() == 0)
+        elevators->at(i)->dir() = 0;
+      
+      // MOVE THE ELEVATOR
+      elevators->at(i)->move(elevators->at(i)->dir());
 
-
-      std::cout << "Find returned: " << elevators->at(i)->find() << std::endl;
+      
+      std::cout << "Find inside ELEVATOR returned: " << elevators->at(i)->find() << std::endl;
       //Find people who are at their target destination and
       //put them in their according lobby
       while(elevators->at(i)->find() != -1)
@@ -50,7 +55,7 @@ void Controller::elevatorTick()
                     << std::endl;
           //Remove the current person from the elevator
           elevators->at(i)->remove(elevators->at(i)->find());
-        }                                                                                                                                                              
+        }
     }
 }
     
@@ -58,12 +63,17 @@ void Controller::lobbyTick()
 {
   std::cout << "INSIDE LOBBY TICK \n";
 
+  //UPDATE THE TASK LIST
+
   for(int i = 0; i < lobbies->size(); i++)
     {
       for(int n = 0; n < elevators->size(); n++)
         {
+          std::cout << "Find inside LOBBY " << i << "returned: "
+                    << lobbies->at(i)->find(elevators->at(n)->Weight_left(),
+                                            elevators->at(n)->destination()) << std::endl;
           while(lobbies->at(i)->find(elevators->at(n)->Weight_left(),
-                                     elevators->at(n)->destination() ) != -1)
+                                     elevators->at(n)->destination()) != -1)
             {
               if(elevators->at(n)->at() == lobbies->at(i)->FLOOR())
                 {
