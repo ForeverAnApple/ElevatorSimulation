@@ -64,9 +64,20 @@ void Controller::lobbyTick()
   std::cout << "INSIDE LOBBY TICK \n";
 
   //UPDATE THE TASK LIST
-
+  
   for(int i = 0; i < lobbies->size(); i++)
     {
+      if(lobbies->at(i)->people().size() != 0)
+      {
+        bool doThing = true;
+        for(int i = 0; i < tasks.size(); i++)
+          {
+            if(tasks.at(i) == lobbies->at(i)->people().at(0)->source())
+              doThing = false;
+          }
+        if(doThing)
+          tasks.push_back(lobbies->at(i)->people().at(0)->source());
+      }
       for(int n = 0; n < elevators->size(); n++)
         {
           std::cout << "Find inside LOBBY " << i << "returned: "
@@ -78,11 +89,14 @@ void Controller::lobbyTick()
               if(elevators->at(n)->at() == lobbies->at(i)->FLOOR())
                 {
                   //Put the current person inside of the elevator
-                  elevators->at(n)->add(lobbies->at(i)->people().at(lobbies->at(i)->find(elevators->at(n)->Weight_left(),
-                                                                                         elevators->at(n)->destination())));
+                  elevators->at(n)->add(lobbies->at(i)->
+                                        people().at(lobbies->at(i)->
+                                                    find(elevators->at(n)->Weight_left(),
+                                                         elevators->at(n)->destination())));
                   //Remove the current person from the lobby
-                  lobbies->at(i)->remove(lobbies->at(i)->find(elevators->at(n)->Weight_left(),
-                                                              elevators->at(n)->destination()));
+                  lobbies->at(i)->remove(lobbies->at(i)->
+                                         find(elevators->at(n)->Weight_left(),
+                                              elevators->at(n)->destination()));
                 }    
             }
         }    
