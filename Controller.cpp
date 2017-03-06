@@ -64,17 +64,18 @@ void Controller::lobbyTick()
   std::cout << "INSIDE LOBBY TICK \n";
 
   //UPDATE THE TASK LIST
-  
   for(int i = 0; i < lobbies->size(); i++)
     {
       if(lobbies->at(i)->people().size() != 0)
       {
         bool doThing = true;
+        std::cout << "Tasks size: " << tasks.size() << std::endl;
         for(int i = 0; i < tasks.size(); i++)
           {
             if(tasks.at(i) == lobbies->at(i)->people().at(0)->source())
               doThing = false;
           }
+        std::cout << "Task checking done.\n";
         if(doThing)
           tasks.push_back(lobbies->at(i)->people().at(0)->source());
       }
