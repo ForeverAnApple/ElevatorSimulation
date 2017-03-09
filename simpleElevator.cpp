@@ -16,6 +16,8 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <cstdlib>
+#include <ctime>
 #include "Person.h"
 #include "Elevator.h"
 #include "Lobby.h"
@@ -41,24 +43,41 @@ std::vector< Person *> queue;
 
 int main()
 {
-  people.push_back(new Person(0, 1, 0, 1));
-  elevators.push_back(new Elevator( MAX_WEIGHT, 0));
-  lobbies.push_back(new Lobby(MAX_PPL, 0));
-  lobbies.push_back(new Lobby(MAX_PPL, 1));
-  lobbies[0]->add(people[0]);
-
+  for(int i = 0; i < 3; i++)
+    elevators.push_back(new Elevator( MAX_WEIGHT, i));
+  
+  for(int i = 0; i < 7; i++)
+    lobbies.push_back(new Lobby(MAX_PPL, i));
+  
+  std::srand(std::time(0));
+  int floor;
+  for(int i = 0; i < 20; i++)
+  {
+    floor = std::rand() % 7;
+    people.push_back(new Person(floor, std::rand() % 7, 0, 1));
+    lobbies[floor]->add(people[i]);
+  }
   controller.addElevator(&elevators);
   controller.addLobby(&lobbies);
   std::string command;
+
+  // Checks the initialized state
+  for(int i = 0; i < lobbies.size(); ++i)
+    std::cout << *(lobbies.at(i)) << std::endl;
+  for(int i = 0; i < elevators.size(); ++i)
+    std::cout << *(elevators.at(i)) << std::endl;
+  std::cout << "^^^^^^^^^^^^^^^^^^^^Initialized state^^^^^^^^^^^^^^^^^^^^^^^\n";
+
   while(command != "q")
     {
+  
+      //std::cout << "In the while loop\n";
+      controller.tick();
       for(int i = 0; i < lobbies.size(); ++i)
         std::cout << *(lobbies.at(i)) << std::endl;
       for(int i = 0; i < elevators.size(); ++i)
         std::cout << *(elevators.at(i)) << std::endl;
-  
-      //std::cout << "In the while loop\n";
-      controller.tick();
+
       std::cout << "---------------------------End of one tick--------------------------\n";
       std::cin >> command;
       //for(int i = 0; i < elevators.size(); ++i)

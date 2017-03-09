@@ -29,8 +29,10 @@ void Controller::elevatorTick()
       if(elevators->at(i)->people().size() == 0 && tasks.size() != 0) {
         elevators->at(i)->dir() =
           tasks.at(0) < elevators->at(i)->at() ? -1 :
-               tasks.at(0) > elevators->at(i)->at() ? 1 : 0;
+          tasks.at(0) > elevators->at(i)->at() ? 1 : 0;
+        std::cout << "Removed task at floor " << tasks.at(0) << std::endl;
         tasks.erase(tasks.begin());
+        std::cout << "Tasks size: " << tasks.size() << std::endl;
       }
       else if(elevators->at(i)->people().size() != 0) {
         elevators->at(i)->dir() = elevators->at(i)->people().at(0)->dir();
@@ -66,19 +68,6 @@ void Controller::lobbyTick()
   //UPDATE THE TASK LIST
   for(int i = 0; i < lobbies->size(); i++)
     {
-      if(lobbies->at(i)->people().size() != 0)
-      {
-        bool doThing = true;
-        std::cout << "Tasks size: " << tasks.size() << std::endl;
-        for(int i = 0; i < tasks.size(); i++)
-          {
-            if(tasks.at(i) == lobbies->at(i)->people().at(0)->source())
-              doThing = false;
-          }
-        std::cout << "Task checking done.\n";
-        if(doThing)
-          tasks.push_back(lobbies->at(i)->people().at(0)->source());
-      }
       for(int n = 0; n < elevators->size(); n++)
         {
           std::cout << "Find inside LOBBY " << i << "returned: "
@@ -89,6 +78,7 @@ void Controller::lobbyTick()
             {
               if(elevators->at(n)->at() == lobbies->at(i)->FLOOR())
                 {
+                  std::cout << "Moved person at floor " << i << " to elevator " << n << std::endl;
                   //Put the current person inside of the elevator
                   elevators->at(n)->add(lobbies->at(i)->
                                         people().at(lobbies->at(i)->
@@ -98,9 +88,31 @@ void Controller::lobbyTick()
                   lobbies->at(i)->remove(lobbies->at(i)->
                                          find(elevators->at(n)->Weight_left(),
                                               elevators->at(n)->destination()));
-                }    
+                }
+              else
+                continue;
             }
-        }    
+        }
+      if(lobbies->at(i)->people().size() != 0)
+        {
+          bool isTask = true;
+          for(int n = 0; n < tasks.size(); n++)
+            {
+              std::cout << "Person at floor " << i << "'s dir returned: "
+                        << lobbies->at(i)->people().at(0)->dir() << std::endl;
+              if(tasks.at(n) == lobbies->at(i)->people().at(0)->source() ||
+                 lobbies->at(i)->people().at(0)->dir() == 0) {
+              
+                isTask = false;
+              }
+            }
+          std::cout << "Task checking done.\n";
+          if(isTask && lobbies->at(i)->people().at(0)->dir() != 0){
+            tasks.push_back(i);
+            std::cout << "Added task to floor " << i << std::endl;
+            std::cout << "Tasks size: " << tasks.size() << std::endl;
+          }
+        }
     }
 }
 
