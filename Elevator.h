@@ -42,7 +42,8 @@ public:
     void remove(Person *);
     int find();
     void add(Person *);
-
+    int size();
+    
 private:
     int at_, destination_, id_, dir_;
     int const MAX_WEIGHT_;
