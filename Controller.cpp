@@ -79,18 +79,16 @@ void Controller::lobbyTick()
               if(elevators->at(n)->at() == lobbies->at(i)->FLOOR())
                 {
                   std::cout << "Moved person at floor " << i << " to elevator " << n << std::endl;
+                  Person* temp = lobbies->at(i)->people().at(lobbies->at(i)->find(elevators->at(n)->Weight_left(), elevators->at(n)->destination()));
                   //Put the current person inside of the elevator
-                  elevators->at(n)->add(lobbies->at(i)->
-                                        people().at(lobbies->at(i)->
-                                                    find(elevators->at(n)->Weight_left(),
-                                                         elevators->at(n)->destination())));
+                  elevators->at(n)->add(temp);
+         
                   //Remove the current person from the lobby
-                  lobbies->at(i)->remove(lobbies->at(i)->
-                                         find(elevators->at(n)->Weight_left(),
-                                              elevators->at(n)->destination()));
+                  lobbies->at(i)->remove(temp);
+                  std::cout << "died here." << std::endl;
                 }
               else
-                continue;
+                break;
             }
         }
       if(lobbies->at(i)->people().size() != 0)
