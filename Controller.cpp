@@ -30,7 +30,7 @@ void Controller::elevatorTick()
       if(e->people().size() == 0 && tasks.size() != 0) {
         e->dir() =
           tasks.at(0) < e->at() ? -1 :
-               tasks.at(0) > e->at() ? 1 : 0;
+          tasks.at(0) > e->at() ? 1 : 0;
         std::cout << "Removed task at floor " << tasks.at(0) << std::endl;
         tasks.erase(tasks.begin());
         std::cout << "Tasks size: " << tasks.size() << std::endl;
