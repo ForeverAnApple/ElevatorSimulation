@@ -58,7 +58,7 @@ void Elevator::move(int x)
     person_.at(i)->source() += x;
 }
 
-int Elevator::find()
+int const Elevator::find()
 {
   for(int i = 0; i < person_.size(); ++i) {
     if(at_ == person_.at(i)->destination()) {
@@ -66,4 +66,9 @@ int Elevator::find()
     }
   }
   return -1;
+}
+
+int const Elevator::size()
+{
+  return person_.size();
 }

@@ -35,14 +35,14 @@ public:
     int const Weight_left() { return MAX_WEIGHT_ - person_.size(); }
     std::vector<Person *> const & people() const{ return person_; }
     std::vector<Person *> & people(){ return person_; }
-
+    
     // Utility
     void move(int);
     void remove(int);
     void remove(Person *);
-    int find();
+    int const find();
     void add(Person *);
-    int size();
+    int const size();
     
 private:
     int at_, destination_, id_, dir_;

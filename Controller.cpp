@@ -27,7 +27,7 @@ void Controller::elevatorTick()
       //on the task list. However, when the elevator has people inside, the elevator's
       //direction is set to the first person's destination
       Elevator * e = elevators->at(i);
-      if(e->people().size() == 0 && tasks.size() != 0) {
+      if(e->size() == 0 && tasks.size() != 0) {
         e->dir() =
           tasks.at(0) < e->at() ? -1 :
           tasks.at(0) > e->at() ? 1 : 0;
@@ -35,10 +35,10 @@ void Controller::elevatorTick()
         tasks.erase(tasks.begin());
         std::cout << "Tasks size: " << tasks.size() << std::endl;
       }
-      else if(e->people().size() != 0) {
+      else if(e->size() != 0) {
         e->dir() = e->people().at(0)->dir();
       }
-      else if(e->people().size() == 0 && tasks.size() == 0)
+      else if(e->size() == 0 && tasks.size() == 0)
         e->dir() = 0;
       
       // MOVE THE ELEVATOR
