@@ -11,6 +11,12 @@
  *   5.) Function decomp EVERYTHING. *DONE*
  *   6.) Elevator Controller. *SEMI-DONE*
  *   7.) Elevator states.
+ *
+ * @IMPORTANT TODO:
+ *   1.) Adding a up and down task list in controller for Elevator controls. This is controlling which floors have people that needs to be moved.
+ *   2.) A holding area of people, this area will change people's destinations and send them to the lobby.
+ *   3.) A list of booleans that remembers the floors people inside the elevator wants to go for each elevator.
+ *   4.) Change the add functions to take in a controller pointer and pass in info into controller.
  */
 
 #include <iostream>
@@ -43,19 +49,19 @@ std::vector< Person *> queue;
 
 int main()
 {
-  for(int i = 0; i < 3; i++)
+  for(int i = 0; i < 2; i++)
     elevators.push_back(new Elevator( MAX_WEIGHT, i));
   
-  for(int i = 0; i < 7; i++)
+  for(int i = 0; i < 3; i++)
     lobbies.push_back(new Lobby(MAX_PPL, i));
   
   std::srand(std::time(0));
   int floor;
-  for(int i = 0; i < 20; i++)
+  for(int i = 0; i < 5; i++)
   {
-    floor = std::rand() % 7;
-    people.push_back(new Person(floor, std::rand() % 7, 0, 1));
-    lobbies[floor]->add(people[i]);
+    floor = std::rand() % 3;
+    people.push_back(new Person(floor, std::rand() % 3, 0, 1));
+    lobbies[floor]->add(people[i]); // TODO: Sending information to the controller about up and down button
   }
   controller.addElevator(&elevators);
   controller.addLobby(&lobbies);
