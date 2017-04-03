@@ -16,7 +16,8 @@ std::ostream & operator<<(std::ostream & cout,
   cout << "\n[------ELEVATOR------\nAt: " << e.at()
        << "\nDestination: " << e.destination()
        << "\nID: " << e.id()
-       << "\nMAX WEIGHT: " << e.MAX_WEIGHT();
+       << "\nMAX WEIGHT: " << e.MAX_WEIGHT()
+       << "\nDirection: " << e.dir();
 
   cout << "\n\nPeople In Elevator:\n";
 

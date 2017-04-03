@@ -9,7 +9,7 @@ class Controller
 {
     
 public:
-    Controller();
+    Controller(int);
     ~Controller();
     void tick();
 
@@ -19,13 +19,15 @@ public:
 private:
     void elevatorTick();
     void lobbyTick();
-
+    
     //Hold Stuff
     std::vector<Elevator *> *  elevators;
     std::vector<int> tasks;
     std::vector<Lobby *> * lobbies;
     
-
+    //Utility for the controller
+    bool * up;
+    bool * down;
 };
 
 #endif

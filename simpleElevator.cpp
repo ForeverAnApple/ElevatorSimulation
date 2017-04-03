@@ -38,7 +38,7 @@ std::vector< Elevator *> elevators;
 std::vector< Person *> people;
 
 // The main elevator and lobby controller
-Controller controller;
+Controller controller(3);
 
 /*
  *This vector contains pointers to people who need

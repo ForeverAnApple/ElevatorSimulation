@@ -1,7 +1,9 @@
 #include "Controller.h"
 
-Controller::Controller()
+Controller::Controller(int floors)
 {
+  up = new bool[floors];
+  down = new bool[floors];
 }
 
 Controller::~Controller()
