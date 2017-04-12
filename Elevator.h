@@ -15,41 +15,44 @@
 #include <vector>
 #include <string>
 #include "Person.h"
+#include "Lobby.h"
 
 class Elevator {
-public:
-    Elevator(int const MAX_WEIGHT = 15,
-             int id = 1);
-    ~Elevator();
+ public:
+  Elevator(int const MAX_WEIGHT = 15,
+	   int id = 1);
+  ~Elevator();
 
-    // Getters and Setters
-    int const at() const { return at_; }
-    int & at() { return at_; }
-    int const destination() const { return destination_; }
-    int & destination() { return destination_; }
-    int const id() const{ return id_; }
-    int & id(){ return id_; }
-    int const dir() const { return dir_; }
-    int & dir(){ return dir_; }
-    int const MAX_WEIGHT() const{ return MAX_WEIGHT_; }
-    int const Weight_left() { return MAX_WEIGHT_ - person_.size(); }
-    std::vector<Person *> const & people() const{ return person_; }
-    std::vector<Person *> & people(){ return person_; }
+  // Getters and Setters
+  int const at() const { return at_; }
+  int & at() { return at_; }
+  int const destination() const { return destination_; }
+  int & destination() { return destination_; }
+  int const id() const{ return id_; }
+  int & id(){ return id_; }
+  int const dir() const { return dir_; }
+  int & dir(){ return dir_; }
+  int const MAX_WEIGHT() const{ return MAX_WEIGHT_; }
+  int const Weight_left() { return MAX_WEIGHT_ - person_.size(); }
+  std::vector<Person *> const & people() const{ return person_; }
+  std::vector<Person *> & people(){ return person_; }
     
-    // Utility
-    void move(int);
-    void remove(int);
-    void remove(Person *);
-    int const find();
-    void add(Person *);
-    int const size();
+  // Utility
+  void move(int);
+  void remove(int);
+  void remove(Person *);
+  int const find();
+  void add(Person *);
+  int const size();
+
+  void tick(std::vector<Lobby *>*&, std::vector<int>&);
     
-private:
-    int at_, destination_, id_, dir_;
-    int const MAX_WEIGHT_;
-    std::vector<Person *> person_;
+ private:
+  int at_, destination_, id_, dir_;
+  int const MAX_WEIGHT_;
+  std::vector<Person *> person_;
 		
-protected:
+ protected:
 };
 
 std::ostream & operator<<(std::ostream & cout,

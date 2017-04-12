@@ -17,6 +17,7 @@
  *   2.) A holding area of people, this area will change people's destinations and send them to the lobby.
  *   3.) A list of booleans that remembers the floors people inside the elevator wants to go for each elevator.
  *   4.) Change the add functions to take in a controller pointer and pass in info into controller.
+ *   5.) Adding a task list for the elevator and a run function for that's it's doing
  */
 
 #include <iostream>
@@ -47,7 +48,7 @@ Controller controller(3);
  */ 
 std::vector< Person *> queue; 
 
-int main()
+int main(int argc, char** argv)
 {
   for(int i = 0; i < 2; i++)
     elevators.push_back(new Elevator( MAX_WEIGHT, i));
@@ -55,7 +56,7 @@ int main()
   for(int i = 0; i < 3; i++)
     lobbies.push_back(new Lobby(MAX_PPL, i));
   
-  std::srand(std::time(0));
+  std::srand(std::atoi(argv[1]));
   int floor;
   for(int i = 0; i < 5; i++)
   {

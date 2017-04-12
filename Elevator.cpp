@@ -30,6 +30,49 @@ std::ostream & operator<<(std::ostream & cout,
   return cout;
 }
 
+
+// IMPORTANT TICK FUNCTION
+void Elevator::tick(std::vector<Lobby *> * &lobbies, std::vector<int> &tasks)
+{
+  //When the elevator is empty, the elevator sets it direction towards the first thing
+      //on the task list. However, when the elevator has people inside, the elevator's
+      //direction is set to the first person's destination
+      if(size() == 0 && tasks.size() != 0) {
+        dir() =
+          tasks.at(0) < at() ? -1 :
+          tasks.at(0) > at() ? 1 : 0;
+        std::cout << "Removed task at floor " << tasks.at(0) << std::endl;
+        tasks.erase(tasks.begin());
+        std::cout << "Tasks size: " << tasks.size() << std::endl;
+      }
+      else if(size() != 0) {
+        dir() = people().at(0)->dir();
+      }
+      else if(size() == 0 && tasks.size() == 0)
+        dir() = 0;
+      
+      // MOVE THE ELEVATOR
+      move(dir());
+
+      
+      std::cout << "Find inside ELEVATOR returned: " << find() << std::endl;
+      //Find people who are at their target destination and
+      //put them in their according lobby
+      while(find() != -1)
+        {
+          //Put the current person inside of the lobby
+          lobbies->at(at())->add(people().at(find()));
+
+          std::cout << "Person found: \n" << people().at(find())
+                    << std::endl;
+          //Remove the current person from the elevator
+          remove(find());
+        }
+}
+
+
+
+
 void Elevator::remove(int index)
 {
   person_.erase(person_.begin() + index);

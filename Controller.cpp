@@ -22,47 +22,14 @@ void Controller::elevatorTick()
 {
   std::cout << "INSIDE ELEVATOR TICK\n";
 
-  //Cycle through all of the elevators
-  for(int i = 0; i < elevators->size(); i++)
-    {
-      //When the elevator is empty, the elevator sets it direction towards the first thing
-      //on the task list. However, when the elevator has people inside, the elevator's
-      //direction is set to the first person's destination
-      Elevator * e = elevators->at(i);
-      if(e->size() == 0 && tasks.size() != 0) {
-        e->dir() =
-          tasks.at(0) < e->at() ? -1 :
-          tasks.at(0) > e->at() ? 1 : 0;
-        std::cout << "Removed task at floor " << tasks.at(0) << std::endl;
-        tasks.erase(tasks.begin());
-        std::cout << "Tasks size: " << tasks.size() << std::endl;
-      }
-      else if(e->size() != 0) {
-        e->dir() = e->people().at(0)->dir();
-      }
-      else if(e->size() == 0 && tasks.size() == 0)
-        e->dir() = 0;
-      
-      // MOVE THE ELEVATOR
-      e->move(e->dir());
-
-      
-      std::cout << "Find inside ELEVATOR returned: " << e->find() << std::endl;
-      //Find people who are at their target destination and
-      //put them in their according lobby
-      while(e->find() != -1)
-        {
-          //Put the current person inside of the lobby
-          lobbies->at(e->at())->add(e->people().at(e->find()));
-
-          std::cout << "Person found: \n" << e->people().at(e->find())
-                    << std::endl;
-          //Remove the current person from the elevator
-          e->remove(e->find());
-        }
-    }
+  for(auto &e : *elevators) {
+    e->tick(lobbies, tasks);
+  }
 }
-    
+
+
+// TODO: Update the task list inside the lobby, move people in and out through the elevator tick
+
 void Controller::lobbyTick()
 {
   std::cout << "INSIDE LOBBY TICK \n";
