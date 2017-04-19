@@ -51,7 +51,7 @@ void Controller::elevatorTick()
       while(e->find() != -1)
         {
           //Put the current person inside of the lobby
-          lobbies->at(e->at())->add(e->people().at(e->find()));
+            e->people().erase(e->people().begin() + e->find());
 
           std::cout << "Person found: \n" << e->people().at(e->find())
                     << std::endl;

@@ -18,7 +18,10 @@ Person::Person(int source, int destination,
 
 Person::~Person()
 {
-
+    if(source_ == destination_)
+        std::cout << "I'm at my destination" << std::endl;
+    else
+        std::cout << "Not at my destination" << std::endl;
 }
 
 Person & Person::operator=(Person const & p)
